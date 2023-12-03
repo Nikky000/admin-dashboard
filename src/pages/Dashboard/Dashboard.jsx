@@ -31,11 +31,11 @@ export default function EnhancedTable() {
   //general
 
   //search
-  const handleSearch = () => {
+  const handleSearch = (q) => {
     console.log(searchQuery);
     const filteredData = rows.filter((row) => {
       const { name, email, role } = row;
-      const lowerCaseQuery = searchQuery.toLowerCase();
+      const lowerCaseQuery = q.toLowerCase();
       return (
         name.toLowerCase().includes(lowerCaseQuery) ||
         email.toLowerCase().includes(lowerCaseQuery) ||
@@ -47,7 +47,9 @@ export default function EnhancedTable() {
 
   const handleQueryChange = (e) => {
     console.log(e.target.value);
+    let q = e.target.value;
     setSearchQuery(e.target.value);
+    handleSearch(q);
   };
 
 
