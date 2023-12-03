@@ -1,30 +1,20 @@
-import data from "./data";
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import Search from "@mui/icons-material/Search";
-import { visuallyHidden } from "@mui/utils";
 import styles from "./Dashboard.module.scss";
-import { Pagination, TextField } from "@mui/material";
+import { Pagination } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import axios from "axios";
 
@@ -33,8 +23,7 @@ export default function EnhancedTable() {
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(1);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const rowsPerPage = 10;
   const [searchQuery, setSearchQuery] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [currentEditRow, setCurrentEditRow] = useState(null);
@@ -43,15 +32,6 @@ export default function EnhancedTable() {
   const [queried, setQueried] = useState([]);
   //general
 
-  function createData(id, name, email, role, actions) {
-    return {
-      id,
-      name,
-      email,
-      role,
-      actions,
-    };
-  }
   function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
       return -1;
@@ -60,24 +40,6 @@ export default function EnhancedTable() {
       return 1;
     }
     return 0;
-  }
-
-  function getComparator(order, orderBy) {
-    return order === "desc"
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
-  }
-
-  function stableSort(array, comparator) {
-    const stabilizedThis = array.map((el, index) => [el, index]);
-    stabilizedThis.sort((a, b) => {
-      const order = comparator(a[0], b[0]);
-      if (order !== 0) {
-        return order;
-      }
-      return a[1] - b[1];
-    });
-    return stabilizedThis.map((el) => el[0]);
   }
 
   //search
@@ -100,12 +62,6 @@ export default function EnhancedTable() {
     setSearchQuery(e.target.value);
   };
 
-  const handleKeyDown = (e) => {
-    console.log(e.key);
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
 
   //sort
   const handleRequestSort = (event, property) => {
@@ -181,10 +137,6 @@ export default function EnhancedTable() {
       label: "Actions",
     },
   ];
-
-  const createSortHandler = (property) => (event) => {
-    handleRequestSort(event, property);
-  };
 
   //useeffects
   useEffect(() => {
@@ -310,7 +262,7 @@ export default function EnhancedTable() {
               width: "97%",
             }}
             aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
+            size="medium"
           >
             {/* <EnhancedTableHead
               numSelected={selected.length}
@@ -474,7 +426,7 @@ export default function EnhancedTable() {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height:  53 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
