@@ -32,16 +32,6 @@ export default function EnhancedTable() {
   const [queried, setQueried] = useState([]);
   //general
 
-  function descendingComparator(a, b, orderBy) {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  }
-
   //search
   const handleSearch = () => {
     console.log(searchQuery);
@@ -62,13 +52,6 @@ export default function EnhancedTable() {
     setSearchQuery(e.target.value);
   };
 
-
-  //sort
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
