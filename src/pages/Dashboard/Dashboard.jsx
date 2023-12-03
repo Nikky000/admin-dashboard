@@ -19,8 +19,6 @@ import { Edit } from "@mui/icons-material";
 import axios from "axios";
 
 export default function EnhancedTable() {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 10;
@@ -280,7 +278,7 @@ export default function EnhancedTable() {
                     key={headCell.id}
                     align={headCell.numeric ? "right" : "left"}
                     padding={headCell.disablePadding ? "none" : "normal"}
-                    sortDirection={orderBy === headCell.id ? order : false}
+                    sortDirection="false"
                     className={styles.tableHead}
                   >
                     {headCell.label}
